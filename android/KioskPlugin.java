@@ -1,4 +1,4 @@
-package cordova.plugin.hideStatusBar;
+package jk.cordova.plugin.kiosk;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -14,10 +14,10 @@ import java.util.Timer;
 import java.util.TimerTask;
 import org.json.JSONArray;
 import org.json.JSONException;
-import cordova.plugin.hideStatusBar.HideStatusBarActivity;
+import jk.cordova.plugin.kiosk.KioskActivity;
 import org.json.JSONObject;
 
-public class HideStatusBarPlugin extends CordovaPlugin {
+public class KioskPlugin extends CordovaPlugin {
     
     public static final String EXIT_KIOSK = "exitKiosk";
     
@@ -28,11 +28,21 @@ public class HideStatusBarPlugin extends CordovaPlugin {
         try {
             if (IS_IN_KIOSK.equals(action)) {
                 
-                callbackContext.success(Boolean.toString(HideStatusBarActivity.running));
+                callbackContext.success(Boolean.toString(KioskActivity.running));
                 return true;
                 
             } else if (EXIT_KIOSK.equals(action)) {
-
+                
+                Intent intent = new Intent(Intent.ACTION_MAIN);
+                intent.addCategory(Intent.CATEGORY_HOME);
+                
+                Intent chooser = Intent.createChooser(intent, "Select destination...");                
+                if (intent.resolveActivity(cordova.getActivity().getPackageManager()) != null) {
+                    cordova.getActivity().startActivity(chooser);
+                }
+                
+                callbackContext.success();
+                return true;
             }
             callbackContext.error("Invalid action");
             return false;

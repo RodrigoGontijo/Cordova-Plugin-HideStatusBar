@@ -1,42 +1,46 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <plugin xmlns="http://apache.org/cordova/ns/plugins/1.0" xmlns:android="http://schemas.android.com/apk/res/android"
-        id="cordova-plugin-hideStatusBar" version="0.2">
+        id="cordova-plugin-kiosk" version="0.2">
     
-    <name>Cordova HideStatusBar Mode</name>
-    <author>Rodrigo Gontijo</author>
-    <description>
-        Cordova plugin to create Cordova application with blocked status bar
-    </description>
+    <name>Cordova Kiosk Mode</name>
+    <author>Jan Kalina</author>
+
+    <keywords>cordova, launcher, homescreen, kiosk, kiosk mode</keywords>
     
     <engines>
         <engine name="cordova" version=">=3.0.0" />
     </engines>
     
-    <js-module src="hideStatusBar.js" name="hideStatusBarPlugin">
-        <clobbers target="window.hideStatusBarPlugin" />
+    <js-module src="kiosk.js" name="kioskPlugin">
+        <clobbers target="window.KioskPlugin" />
     </js-module>
     
     <platform name="android">
         
         <config-file target="res/xml/config.xml" parent="/*">
-            <feature name="hideStatusBarPlugin">
-                <param name="android-package" value="cordova.plugin.hideStatusBar.hideStatusBarPlugin" />
+            <feature name="KioskPlugin">
+                <param name="android-package" value="jk.cordova.plugin.kiosk.KioskPlugin" />
             </feature>
         </config-file>
         
         <config-file target="AndroidManifest.xml" parent="/manifest/application">
-
-            <!-- inner activity, replacement of MainActivity with buttons blocked -->
-            <activity android:label="Cordova hide status bar app" android:launchMode="singleTop" android:theme="@android:style/Theme.NoTitleBar.Fullscreen" android:keepScreenOn="true" android:configChanges="orientation|keyboardHidden|keyboard|screenSize|locale|uiMode" android:windowSoftInputMode="adjustResize" android:name="cordova.plugin.hideStatusBar.HideStatusBarActivity">
+            
+            <!-- activity to use as launcher - because Cordova app is failing if started while boot -->
+            <activity android:label="Cordova kiosk app launcher" android:launchMode="singleTop" android:theme="@android:style/Theme.NoTitleBar.Fullscreen" android:keepScreenOn="true" android:name="jk.cordova.plugin.kiosk.HomeActivity">
                 <intent-filter>
                     <action android:name="android.intent.action.MAIN" />
                 </intent-filter>
             </activity>
             
+            <!-- inner activity, replacement of MainActivity with buttons blocked -->
+            <activity android:label="Cordova kiosk app" android:launchMode="singleTop" android:theme="@android:style/Theme.NoTitleBar.Fullscreen" android:keepScreenOn="true" android:configChanges="orientation|keyboardHidden|keyboard|screenSize|locale|uiMode" android:windowSoftInputMode="adjustResize" android:name="jk.cordova.plugin.kiosk.KioskActivity">
+            </activity>
+            
         </config-file>
-
-        <source-file src="android/HideStatusBarActivity.java" target-dir="src/cordova/plugin/hideStatusBar" />
-        <source-file src="android/HideStatusBarPlugin.java" target-dir="src/cordova/plugin/hideStatusBar" />
+        
+        <source-file src="android/HomeActivity.java" target-dir="src/jk/cordova/plugin/kiosk" />
+        <source-file src="android/KioskActivity.java" target-dir="src/jk/cordova/plugin/kiosk" />
+        <source-file src="android/KioskPlugin.java" target-dir="src/jk/cordova/plugin/kiosk" />
         
     </platform>
     
