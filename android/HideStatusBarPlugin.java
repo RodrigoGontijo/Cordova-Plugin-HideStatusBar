@@ -1,4 +1,4 @@
-package jk.cordova.plugin.kiosk;
+package cordova.plugin.hideStatusBar;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -14,7 +14,7 @@ import java.util.Timer;
 import java.util.TimerTask;
 import org.json.JSONArray;
 import org.json.JSONException;
-import jk.cordova.plugin.kiosk.KioskActivity;
+import cordova.plugin.hideStatusBar.HideStatusBarActivity;
 import org.json.JSONObject;
 
 public class HideStatusBarPlugin extends CordovaPlugin {
@@ -28,7 +28,7 @@ public class HideStatusBarPlugin extends CordovaPlugin {
         try {
             if (IS_IN_KIOSK.equals(action)) {
                 
-                callbackContext.success(Boolean.toString(KioskActivity.running));
+                callbackContext.success(Boolean.toString(HideStatusBarActivity.running));
                 return true;
                 
             } else if (EXIT_KIOSK.equals(action)) {

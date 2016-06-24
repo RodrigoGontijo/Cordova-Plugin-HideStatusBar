@@ -1,4 +1,4 @@
-package jk.cordova.plugin.kiosk;
+package cordova.plugin.hideStatusBar;
 
 import android.app.Activity;
 import android.content.Intent;
