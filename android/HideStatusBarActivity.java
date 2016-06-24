@@ -13,7 +13,7 @@ import android.view.ViewGroup.LayoutParams;
 import java.util.Timer;
 import java.util.TimerTask;
 
-public class KioskActivity extends CordovaActivity {
+public class HideStatusBarActivity extends CordovaActivity {
     
     public static boolean running = false;
     

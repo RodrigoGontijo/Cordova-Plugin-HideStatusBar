@@ -17,7 +17,7 @@ import org.json.JSONException;
 import jk.cordova.plugin.kiosk.KioskActivity;
 import org.json.JSONObject;
 
-public class KioskPlugin extends CordovaPlugin {
+public class HideStatusBarPlugin extends CordovaPlugin {
     
     public static final String EXIT_KIOSK = "exitKiosk";
     
